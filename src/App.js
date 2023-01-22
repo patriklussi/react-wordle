@@ -4,6 +4,7 @@ import "./App.css";
 import Board from "./components/Board";
 import Keyboard from "./components/Keyboard";
 import Error from "./components/Error";
+import Header from "./components/Header";
 function App() {
   const [word, setWord] = useState("");
   const [activeRow, setActiveRow] = useState(0);
@@ -66,7 +67,7 @@ function App() {
       setColumn((prevCol) => prevCol - 1);
     }
   };
-
+  let arr = [];
   const evaluteRow = (row) => {
     console.log("Row ", row);
     if (row.join("") === word) {
@@ -74,9 +75,12 @@ function App() {
     } else {
       for (let i = 0; i < row.length; i++) {
         if (row[i] === word[i]) {
-          setStatus([...status,word[i]]);
+          // arr.push(row[i]);
+          // console.log("ARR",arr);
         } else if(word.includes(row[i])){
-          setStatus([...status, row[i]])
+          arr.push(row[i]);
+          console.log("ARR",arr);
+          setStatus(arr);
         }
       }
     }
@@ -146,19 +150,23 @@ function App() {
   // runTrough();
  
   return (
+    <div className="wrapper">
+
+    {/* <Header/> */}
     <div
       onKeyDown={(e) => {
         handleKeyPress(e.key);
       }}
       tabIndex={0}
-      className="App"
+      className="Game"
     >
-      <h1 style={{color:"white"}}>Wordle</h1>
+     
       {error ? <Error errorMsg={error} /> : <></>}
       <div className="game-wrapper">
-        <Board status={status} error={error} gameArr={gameArr} />
+        <Board activeRow={activeRow} status={status} error={error} gameArr={gameArr} />
       </div>
       <Keyboard status={status} handleVirtualKeyboardPress={handleKeyPress} />
+    </div>
     </div>
   );
 }
