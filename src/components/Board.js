@@ -9,12 +9,17 @@ export default function Board({ gameArr, error, status,activeRow }) {
   console.log(status);
   return (
     <>
-      {gameArr?.map((x, index) => {
+      {gameArr?.map((x, rowIndex) => {
         return (
-          <section className={`row ${error && index === activeRow ? "shake" : ""}`} key={index}>
-            {x.map((value, index) => (
-              <Cell className="greenbackground" status={status} key={index} value={value} />
+          <section className={`row ${error && rowIndex === activeRow ? "shake" : ""}`} key={rowIndex}>
+
+
+
+            {x.map((value, columnIndex) => (
+              <Cell  index={columnIndex} status={status} key={columnIndex} value={value} />
             ))}
+
+            
           </section>
         );
       })}

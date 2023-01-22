@@ -103,25 +103,20 @@ html {
     transform: scale((1));
   }
 }
-
 .greenbackground {
-  background-color: yellow;
+  background-color: rgb(9, 255, 0);
   transition: linear all;
   transform: rotateY(180);
 }
-
 .yellowbackground {
-  background-color: yellow;
+  background-color: #d1d141;
 }
-
 .darkgray {
   background-color: rgb(83, 83, 83);
 }
-
 .shake {
   animation: shake 0.3s linear;
 }
-
 @keyframes shake {
   0% {
     transform: translateX(0);
@@ -160,5 +155,28 @@ header h1 {
 }
 
 .blackness {
- background: rgb(156, 156, 156);
+  background: rgb(156, 156, 156);
+}
+
+.flip {
+
+  animation: flip linear 0.3s;
+
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateX(0);
+
+
+  }
+
+  50% {
+    transform: rotateX(90deg);
+
+  }
+
+  100% {
+    transform: rotateX(0deg);
+  }
 }

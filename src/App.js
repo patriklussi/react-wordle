@@ -18,8 +18,11 @@ function App() {
   ]);
   const [column, setColumn] = useState(0);
   const [error, setError] = useState(null);
-  const [status, setStatus] = useState([]);
-  
+  const [status, setStatus] = useState({
+    foundOnCorrectIndex: [],
+    foundOnWrongIndex: [],
+    notFound: [],
+  });
 
   useEffect(() => {
     let index = Math.floor(Math.random() * wordsList.length);
@@ -67,35 +70,31 @@ function App() {
       setColumn((prevCol) => prevCol - 1);
     }
   };
-  let arr = [];
+
   const evaluteRow = (row) => {
+    let arr = [];
+    let arr2 = [];
+    let arr3 = [];
     console.log("Row ", row);
     if (row.join("") === word) {
-      setStatus(row)
-    } else {
-      for (let i = 0; i < row.length; i++) {
-        if (row[i] === word[i]) {
-          // arr.push(row[i]);
-          // console.log("ARR",arr);
-        } else if(word.includes(row[i])){
-          arr.push(row[i]);
-          console.log("ARR",arr);
-          setStatus(arr);
-        }
+      console.log("won");
+    }
+    for (let i = 0; i < row.length; i++) {
+      if (row[i] === word[i]) {
+        arr.push(i);
+      } else if (word.includes(row[i])) {
+        arr2.push(i);
+      } else {
+        arr3.push(i);
       }
     }
-    // for (let i = 0; i < row.length; i++) {
-    //   if (row[i] === word[i]
-    //     ) {
-    //     console.log("letter matches to a letter in word", word[i]);
-    //     setStatus([...status,
-    //     row[i]]);
-    //   } else if (word.includes(row[i])) {
-    //     console.log("in word but doesnt match", row[i]);
-    //   } else {
-    //     console.log("not in word", row[i]);
-    //   }
-    // }
+    setStatus({
+      ...status,
+      foundOnCorrectIndex: arr,
+      foundOnWrongIndex: arr2,
+      notFound: arr3,
+    });
+
   };
   const checkIfWordIsInList = (selectedRow) => {
     let typedWord = selectedRow.join("");
@@ -103,70 +102,29 @@ function App() {
     return wordsList.includes(typedWord);
   };
   console.log(status);
-  // const checkIfExists = (rowToCheck) => {
-  //   let inputWord = rowToCheck.join("");
-  //   console.log(wordsList);
-  //   if (wordsList.includes(inputWord)) {
-  //     for (let i = 0; i < rowToCheck.length; i++) {
-  //       if (rowToCheck[i] === word[i]) {
-  //         console.log("matches");
-  //       } else if (word.includes(rowToCheck[i])) {
-  //         console.log("Almost exists");
-  //       } else {
-  //         console.log("letter is not in word at all");
-  //       }
-  //     }
-  //   } else {
-  //     setError("Word is not in the list");
-  //     setTimeout(() => {
-  //       setError("");
-  //     }, 2000);
-  //   }
-  // };
 
-  // const arr = [
-  //   ["W", "Q", "R", "D", "R"],
-  //   ["W", "Q", "D", "D", "S"],
-  // ];
-  // const wordList = ["words", "piggy", "snacks"];
-  // const wordOfTheDay = wordList[Math.random() * 3];
-  // console.log(wordOfTheDay);
-  // function runTrough() {
-  //   console.log(word);
-  //   let row = 0;
-  //   for (let i = 0; i < arr.length; i++) {
-  //     for (let j = 0; j < arr[row].length; j++) {
-  //       if (arr[row][j] === wordOfTheDay[j]) {
-  //         console.log("victory");
-  //       } else if (wordOfTheDay.includes(arr[row][j])) {
-  //         console.log("Word is in the thing");
-  //       } else {
-  //         console.log("word is not in it at all");
-  //       }
-  //     }
-  //   }
-  // }
 
-  // runTrough();
- 
   return (
     <div className="wrapper">
-
-    {/* <Header/> */}
-    <div
-      onKeyDown={(e) => {
-        handleKeyPress(e.key);
-      }}
-      tabIndex={0}
-      className="Game"
-    >
-     
-      {error ? <Error errorMsg={error} /> : <></>}
-      <div className="game-wrapper">
-        <Board activeRow={activeRow} status={status} error={error} gameArr={gameArr} />
+      {/* <Header/> */}
+      <div
+        onKeyDown={(e) => {
+          handleKeyPress(e.key);
+        }}
+        tabIndex={0}
+        className="Game"
+      >
+        {error ? <Error errorMsg={error} /> : <></>}
+        <div className="game-wrapper">
+          <Board
+            activeRow={activeRow}
+            status={status}
+            error={error}
+            gameArr={gameArr}
+          />
+        </div>
+        <Keyboard status={status} handleVirtualKeyboardPress={handleKeyPress} />
       </div>
-      <Keyboard status={status} handleVirtualKeyboardPress={handleKeyPress} />
-    </div>
     </div>
   );
 }
