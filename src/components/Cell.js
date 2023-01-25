@@ -10,18 +10,22 @@ export default function Cell({ value, status, index }) {
   useEffect(() => {
     if(value === ""){return}
     function color() {
-      if (status.foundOnCorrectIndex?.includes(index)) {
+      if (status.foundOnCorrectIndex?.includes(value)) {
         setfoundClass("greenbackground");
-      } else if (status.foundOnWrongIndex?.includes(index)) {
+
+        console.log("HELLO");
+      } else if (status.foundOnWrongIndex?.includes(value)) {
         setContainsClass("yellowbackground");
-      } else if (status.notFound?.includes(index)) {
+        console.log("HELLO");
+      } else if (status.notFound?.includes(value)) {
         setNotFoundClass("blackness");
       }
     }
-    color();
+    
       setTimeout(()=>{
+        color();
         setFlip("flip");
-      },60 * index);
+      },350 * index);
   }, [status]);
   // Check for colors should be done with a useffect otherwise shit just dont work
   return (

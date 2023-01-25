@@ -23,7 +23,12 @@ function App() {
     foundOnWrongIndex: [],
     notFound: [],
   });
-
+  const [victory,setVictory ] = useState(false);
+  useEffect(()=>{
+    if(activeRow === 6){
+        setVictory(true);
+    }
+  },[activeRow])
   useEffect(() => {
     let index = Math.floor(Math.random() * wordsList.length);
     setWord(wordsList[index]);
@@ -44,31 +49,34 @@ function App() {
 
   const handleKeyPress = (key) => {
     let keyUpper = key.toUpperCase();
-    if (
-      column < gameArr[activeRow].length &&
-      keyUpper.length === 1 &&
-      isAlpha(keyUpper)
-    ) {
-      console.log("setGameArr is running");
-      setGameChar(keyUpper, activeRow, column);
-      setColumn((prevCol) => prevCol + 1);
-    } else if (column >= gameArr[activeRow].length && keyUpper === "ENTER") {
-      if (checkIfWordIsInList(gameArr[activeRow])) {
-        setError(null);
-        evaluteRow(gameArr[activeRow]);
-        setActiveRow((prevRow) => prevRow + 1);
-        setColumn(0);
-      } else {
-        setError("Word is not in list");
-        setTimeout(() => {
+    if(!victory){
+      if (
+        column < gameArr[activeRow].length &&
+        keyUpper.length === 1 &&
+        isAlpha(keyUpper)
+      ) {
+        console.log("setGameArr is running");
+        setGameChar(keyUpper, activeRow, column);
+        setColumn((prevCol) => prevCol + 1);
+      } else if (column >= gameArr[activeRow].length && keyUpper === "ENTER") {
+        if (checkIfWordIsInList(gameArr[activeRow])) {
           setError(null);
-        }, 2000);
+          evaluteRow(gameArr[activeRow]);
+          setActiveRow((prevRow) => prevRow + 1);
+          setColumn(0);
+        } else {
+          setError("Word is not in list");
+          setTimeout(() => {
+            setError(null);
+          }, 2000);
+        }
+      } else if (keyUpper === "BACKSPACE" && column > 0) {
+        console.log("Backspace running", column);
+        setGameChar("", activeRow, column - 1);
+        setColumn((prevCol) => prevCol - 1);
       }
-    } else if (keyUpper === "BACKSPACE" && column > 0) {
-      console.log("Backspace running", column);
-      setGameChar("", activeRow, column - 1);
-      setColumn((prevCol) => prevCol - 1);
     }
+   
   };
 
   const evaluteRow = (row) => {
@@ -78,16 +86,26 @@ function App() {
     console.log("Row ", row);
     if (row.join("") === word) {
       console.log("won");
+      setVictory(true);
     }
     for (let i = 0; i < row.length; i++) {
       if (row[i] === word[i]) {
-        arr.push(i);
+        arr.push(row[i]);
       } else if (word.includes(row[i])) {
-        arr2.push(i);
+        arr2.push(row[i]);
       } else {
-        arr3.push(i);
+        arr3.push(row[i]);
       }
     }
+    // for (let i = 0; i < row.length; i++) {
+    //   if (row[i] === word[i]) {
+    //     arr.push(i);
+    //   } else if (word.includes(row[i])) {
+    //     arr2.push(i);
+    //   } else {
+    //     arr3.push(i);
+    //   }
+    // }
     setStatus({
       ...status,
       foundOnCorrectIndex: arr,
@@ -106,7 +124,7 @@ function App() {
 
   return (
     <div className="wrapper">
-      {/* <Header/> */}
+      <Header/>
       <div
         onKeyDown={(e) => {
           handleKeyPress(e.key);
