@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../App.css";
 import Key from "../components/Key";
 export default function Keyboard({ handleVirtualKeyboardPress, status }) {
-  const allkeys = "QWERTYUIOPASDFGHJKLZXCVBNKM".split("");
+  const allkeys = "QWERTYUIOPASDFGHJKLZXCVBNM".split("");
   const enter = "Enter";
   const backspace = "Backspace";
   const keyRow1 = allkeys.slice(0,10);

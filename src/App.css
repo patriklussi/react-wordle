@@ -1,6 +1,7 @@
 body,
 html {
   margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 * {
@@ -10,7 +11,7 @@ html {
 .wrapper {
   height: 100vh;
   background-color: #000000da;
-  
+  position: relative;
 }
 
 .Game {
@@ -18,7 +19,7 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
- 
+
 }
 
 .game-wrapper {
@@ -59,8 +60,8 @@ html {
 }
 
 .keyboard-button {
-  height: 50px;
-  min-width: 40px;
+  height: 55px;
+  min-width: 45px;
   border: none;
   margin: 0px 5px 5px 0px;
   cursor: pointer;
@@ -110,7 +111,7 @@ html {
 .greenbackground {
   background-color: rgb(89, 209, 85);
   transition: linear all;
-  transform: rotateY(180);
+
 }
 
 .yellowbackground {
@@ -129,23 +130,28 @@ html {
   0% {
     transform: translateX(0);
   }
+
   25% {
     transform: translateX(5px);
   }
+
   50% {
     transform: translateX(0);
   }
+
   75% {
     transform: translateX(-5px)
   }
+
   100% {
     transform: translateX(0);
   }
 }
 
 header {
-  height: 75px;
-  background-color: rgb(167, 165, 165);
+  height: 100px;
+
+  text-align: center;
   width: 100%;
   padding: 15px;
   box-sizing: border-box;
@@ -156,7 +162,7 @@ header h1 {
   margin: 0;
 }
 
-.blackness {
+.toggle-not-found-color {
   background: rgb(156, 156, 156);
 }
 
@@ -181,4 +187,61 @@ header h1 {
   100% {
     transform: rotateX(0deg);
   }
+}
+
+.modal {
+  position:fixed;
+  left:0;
+  bottom:0;
+  right:0;
+  top:0;
+  background-color: rgba(211, 211, 211, 0.548);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.modal-content {
+  width: 425px;
+  height: 500px;
+  background-color: rgb(19, 19, 19);
+  color: white;
+  padding: 20px 15px 15px 15px;
+  text-align: center;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  
+
+}
+
+.victoryButton {
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  width: 120px;
+  cursor: pointer;
+}
+
+.victoryButton:hover {
+  background-color: rgb(189, 189, 189);
+}
+
+.modal-close {
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+ 
+}
+.modal-close:hover {
+  background-color: rgb(189, 189, 189);
+}
+
+.modal-header {
+
+border-bottom: 1px solid gray;
+width: 100%;
+padding: 15px;
 }

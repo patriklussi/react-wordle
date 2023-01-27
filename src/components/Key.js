@@ -1,25 +1,29 @@
 import React, { useState, useEffect } from "react";
-
+import "../App.css";
 export default function Key({ value, handleClick, status }) {
-  const [foundClass, setfoundClass] = useState("");
-  const [containsClass, setContainsClass] = useState("");
-  const [notFoundClass, setNotFoundClass] = useState("");
+  const [foundClass, setfoundClass] = useState(false);
+  const [containsClass, setContainsClass] = useState(false);
+  const [notFoundClass, setNotFoundClass] = useState(false);
   useEffect(() => {
     colorKeys(value);
-  },[status]);
+  }, [status]);
 
   const colorKeys = (value) => {
+    setContainsClass(false);
+    setfoundClass(false);
     if (status.foundOnCorrectIndex?.includes(value)) {
-      setfoundClass("greenbackground");
+      setfoundClass(true);
     } else if (status.foundOnWrongIndex?.includes(value)) {
-      setContainsClass("yellowbackground");
+      setContainsClass(true);
     } else if (status.notFound?.includes(value)) {
-      setNotFoundClass("blackness");
+      setNotFoundClass(true);
     }
   };
   return (
     <button
-      className={`keyboard-button ${foundClass}  ${containsClass} ${notFoundClass} `}
+      className={`keyboard-button ${foundClass ? "greenbackground" : ""}  ${
+        containsClass ? "yellowbackground" : ""
+      } ${notFoundClass ? "toggle-not-found-color" : ""} `}
       onClick={() => {
         handleClick(value);
       }}

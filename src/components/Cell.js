@@ -18,7 +18,7 @@ export default function Cell({ value, status, index }) {
         setContainsClass("yellowbackground");
         console.log("HELLO");
       } else if (status.notFound?.includes(value)) {
-        setNotFoundClass("blackness");
+        setNotFoundClass("toggle-not-found-color");
       }
     }
     

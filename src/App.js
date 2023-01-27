@@ -5,6 +5,7 @@ import Board from "./components/Board";
 import Keyboard from "./components/Keyboard";
 import Error from "./components/Error";
 import Header from "./components/Header";
+import Modal from "./components/Modal";
 function App() {
   const [word, setWord] = useState("");
   const [activeRow, setActiveRow] = useState(0);
@@ -23,16 +24,22 @@ function App() {
     foundOnWrongIndex: [],
     notFound: [],
   });
-  const [victory,setVictory ] = useState(false);
-  useEffect(()=>{
-    if(activeRow === 6){
-        setVictory(true);
+  const [victory, setVictory] = useState(false);
+  const [show,setShow] = useState(false);
+  useEffect(() => {
+    if (activeRow === 6 && victory === false) {
+      console.log("loss");
     }
-  },[activeRow])
+  }, [activeRow]);
   useEffect(() => {
     let index = Math.floor(Math.random() * wordsList.length);
     setWord(wordsList[index]);
   }, []);
+  useEffect(()=>{
+    if(victory){
+      setShow(true);
+    }
+  },[victory])
   console.log(word);
   const isAlpha = (char) => {
     return /[A-Z]/.test(char);
@@ -49,7 +56,7 @@ function App() {
 
   const handleKeyPress = (key) => {
     let keyUpper = key.toUpperCase();
-    if(!victory){
+    if (!victory) {
       if (
         column < gameArr[activeRow].length &&
         keyUpper.length === 1 &&
@@ -76,7 +83,6 @@ function App() {
         setColumn((prevCol) => prevCol - 1);
       }
     }
-   
   };
 
   const evaluteRow = (row) => {
@@ -86,7 +92,10 @@ function App() {
     console.log("Row ", row);
     if (row.join("") === word) {
       console.log("won");
-      setVictory(true);
+      setTimeout( () =>{
+        setVictory(true);
+      },3000)
+
     }
     for (let i = 0; i < row.length; i++) {
       if (row[i] === word[i]) {
@@ -97,22 +106,13 @@ function App() {
         arr3.push(row[i]);
       }
     }
-    // for (let i = 0; i < row.length; i++) {
-    //   if (row[i] === word[i]) {
-    //     arr.push(i);
-    //   } else if (word.includes(row[i])) {
-    //     arr2.push(i);
-    //   } else {
-    //     arr3.push(i);
-    //   }
-    // }
+
     setStatus({
       ...status,
       foundOnCorrectIndex: arr,
       foundOnWrongIndex: arr2,
       notFound: arr3,
     });
-
   };
   const checkIfWordIsInList = (selectedRow) => {
     let typedWord = selectedRow.join("");
@@ -121,17 +121,17 @@ function App() {
   };
   console.log(status);
 
-
   return (
-    <div className="wrapper">
-      <Header/>
-      <div
-        onKeyDown={(e) => {
-          handleKeyPress(e.key);
-        }}
-        tabIndex={0}
-        className="Game"
-      >
+    <div
+      onKeyDownCapture={(e) => {
+        handleKeyPress(e.key);
+      }}
+      tabIndex={0}
+      className="wrapper"
+    >
+      <Header />
+      <Modal word={word} show={show} setShow={setShow}/>
+      <div className="Game">
         {error ? <Error errorMsg={error} /> : <></>}
         <div className="game-wrapper">
           <Board
