@@ -73,7 +73,7 @@ html {
   background-color: rgb(189, 189, 189);
 }
 
-.errorCard {
+.error-card {
   width: fit-content;
   height: fit-content;
   background-color: rgb(19, 19, 19);
@@ -84,12 +84,12 @@ html {
   top: 5%;
 }
 
-.errorCard p {
+.error-card p {
   margin: 0;
   color: white;
 }
 
-.bounce {
+.bounce-oninput {
   animation: bounce 0.1s linear;
   border: 2px solid rgb(156, 156, 156);
 }
@@ -108,13 +108,13 @@ html {
   }
 }
 
-.greenbackground {
+.toggle-foundletter-color-green {
   background-color: rgb(89, 209, 85);
   transition: linear all;
 
 }
 
-.yellowbackground {
+.toggle-containsletter-color-yellow {
   background-color: #d1d141;
 }
 
@@ -122,7 +122,7 @@ html {
   background-color: rgb(83, 83, 83);
 }
 
-.shake {
+.shake-on-error {
   animation: shake 0.3s linear;
 }
 
@@ -166,7 +166,7 @@ header h1 {
   background: rgb(156, 156, 156);
 }
 
-.flip {
+.flip-cell {
 
   animation: flip linear 0.4s;
 
@@ -216,7 +216,7 @@ header h1 {
 
 }
 
-.victoryButton {
+.replay-button {
   padding: 10px;
   background-color: white;
   border-radius: 5px;
@@ -224,18 +224,18 @@ header h1 {
   cursor: pointer;
 }
 
-.victoryButton:hover {
+.replay-button:hover {
   background-color: rgb(189, 189, 189);
 }
 
-.modal-close {
+.modal-close-button {
   background-color: white;
   padding: 5px;
   border-radius: 5px;
   cursor: pointer;
  
 }
-.modal-close:hover {
+.modal-close-button:hover {
   background-color: rgb(189, 189, 189);
 }
 
@@ -244,4 +244,6 @@ header h1 {
 border-bottom: 1px solid gray;
 width: 100%;
 padding: 15px;
+display: flex;
+justify-content: flex-end;
 }

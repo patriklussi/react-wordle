@@ -25,7 +25,7 @@ function App() {
     notFound: [],
   });
   const [victory, setVictory] = useState(false);
-  const [show,setShow] = useState(false);
+  const [show, setShow] = useState(false);
   useEffect(() => {
     if (activeRow === 6 && victory === false) {
       console.log("loss");
@@ -35,11 +35,11 @@ function App() {
     let index = Math.floor(Math.random() * wordsList.length);
     setWord(wordsList[index]);
   }, []);
-  useEffect(()=>{
-    if(victory){
+  useEffect(() => {
+    if (victory) {
       setShow(true);
     }
-  },[victory])
+  }, [victory]);
   console.log(word);
   const isAlpha = (char) => {
     return /[A-Z]/.test(char);
@@ -92,10 +92,9 @@ function App() {
     console.log("Row ", row);
     if (row.join("") === word) {
       console.log("won");
-      setTimeout( () =>{
+      setTimeout(() => {
         setVictory(true);
-      },3000)
-
+      }, 3000);
     }
     for (let i = 0; i < row.length; i++) {
       if (row[i] === word[i]) {
@@ -130,7 +129,7 @@ function App() {
       className="wrapper"
     >
       <Header />
-      <Modal word={word} show={show} setShow={setShow}/>
+      <Modal word={word} show={show} setShow={setShow} />
       <div className="Game">
         {error ? <Error errorMsg={error} /> : <></>}
         <div className="game-wrapper">

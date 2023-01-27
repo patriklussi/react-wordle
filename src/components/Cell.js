@@ -1,40 +1,41 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 
-
 export default function Cell({ value, status, index }) {
-  const [foundClass, setfoundClass] = useState("");
-  const [containsClass, setContainsClass] = useState("");
-  const [notFoundClass, setNotFoundClass] = useState("");
-  const [flip,setFlip] = useState("");
+  const [foundClass, setfoundClass] = useState(false);
+  const [containsClass, setContainsClass] = useState(false);
+  const [notFoundClass, setNotFoundClass] = useState(false);
+  const [flip, setFlip] = useState("");
   useEffect(() => {
-    if(value === ""){return}
+    if (value === "") {
+      return;
+    }
     function color() {
       if (status.foundOnCorrectIndex?.includes(value)) {
-        setfoundClass("greenbackground");
-
+        setfoundClass(true);
         console.log("HELLO");
       } else if (status.foundOnWrongIndex?.includes(value)) {
-        setContainsClass("yellowbackground");
+        setContainsClass(true);
         console.log("HELLO");
       } else if (status.notFound?.includes(value)) {
-        setNotFoundClass("toggle-not-found-color");
+        setNotFoundClass(true);
       }
     }
-    
-      setTimeout(()=>{
-        color();
-        setFlip("flip");
-      },350 * index);
+
+    setTimeout(() => {
+      color();
+      setFlip("flip-cell");
+    }, 350 * index);
   }, [status]);
   // Check for colors should be done with a useffect otherwise shit just dont work
   return (
     <article
-      className={`cell ${
-        value !== "" ? "bounce" : ""
-      } ${foundClass}  ${containsClass} ${notFoundClass} ${flip} `}
+      className={`cell ${value !== "" ? "bounce-oninput" : ""} ${
+        foundClass ? "toggle-foundletter-color-green" : ""
+      }  ${containsClass ? "toggle-containsletter-color-yellow" : ""} ${
+        notFoundClass ? "toggle-not-found-color" : ""
+      } ${flip} `}
     >
-
       {value}
     </article>
   );

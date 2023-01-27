@@ -21,8 +21,8 @@ export default function Key({ value, handleClick, status }) {
   };
   return (
     <button
-      className={`keyboard-button ${foundClass ? "greenbackground" : ""}  ${
-        containsClass ? "yellowbackground" : ""
+      className={`keyboard-button ${foundClass ? "toggle-foundletter-color-green" : ""}  ${
+        containsClass ? "toggle-containsletter-color-yellow" : ""
       } ${notFoundClass ? "toggle-not-found-color" : ""} `}
       onClick={() => {
         handleClick(value);
