@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import Cell from "./Cell";
 import Keyboard from "./Keyboard";
 import "../App.css";
-export default function Board({ gameArr, error, status, activeRow }) {
+import { Co2Sharp } from "@mui/icons-material";
+export default function Board({ gameArr, error, status, activeRow ,correctWord,setDisabled}) {
   // useEffect(()=>{
 
   // },[status])
@@ -10,6 +11,7 @@ export default function Board({ gameArr, error, status, activeRow }) {
   return (
     <>
       {gameArr?.map((x, rowIndex) => {
+      
         return (
           <section
             className={`row ${error && rowIndex === activeRow ? "shake-on-error" : ""}`}
@@ -17,6 +19,8 @@ export default function Board({ gameArr, error, status, activeRow }) {
           >
             {x.map((value, columnIndex) => (
               <Cell
+               correctWord={correctWord}
+               setDisabled={setDisabled}
                 index={columnIndex}
                 status={status}
                 key={columnIndex}

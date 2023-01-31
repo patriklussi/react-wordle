@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
 import Key from "../components/Key";
+
 export default function Keyboard({ handleVirtualKeyboardPress, status }) {
   const allkeys = "QWERTYUIOPASDFGHJKLZXCVBNM".split("");
   const enter = "Enter";

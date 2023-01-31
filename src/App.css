@@ -110,12 +110,13 @@ html {
 
 .toggle-foundletter-color-green {
   background-color: rgb(89, 209, 85);
-  transition: linear all;
+ 
 
 }
 
 .toggle-containsletter-color-yellow {
   background-color: #d1d141;
+
 }
 
 .darkgray {
@@ -150,18 +151,33 @@ html {
 
 header {
   height: 100px;
+display: flex;
 
   text-align: center;
   width: 100%;
   padding: 15px;
   box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+
 }
 
 header h1 {
   color: white;
   margin: 0;
-}
 
+
+}
+header h2 {
+justify-content: flex-end;
+margin-right: 15px;
+cursor: pointer;
+transition: all 0.15s linear;
+
+}
+header h2:hover {
+  color: white;
+}
 .toggle-not-found-color {
   background: rgb(156, 156, 156);
 }
@@ -241,9 +257,8 @@ header h1 {
 
 .modal-header {
 
-border-bottom: 1px solid gray;
 width: 100%;
-padding: 15px;
+padding: 10px;
 display: flex;
 justify-content: flex-end;
 }

@@ -1,42 +1,41 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 
-export default function Cell({ value, status, index }) {
-  const [foundClass, setfoundClass] = useState(false);
-  const [containsClass, setContainsClass] = useState(false);
-  const [notFoundClass, setNotFoundClass] = useState(false);
-  const [flip, setFlip] = useState("");
+export default function Cell({ value, status, index, correctWord,setDisabled }) {
+  const [letterState, setLetterState] = useState("");
+  const [flip, setFlip] = useState(false);
   useEffect(() => {
     if (value === "") {
       return;
     }
-    function color() {
-      if (status.foundOnCorrectIndex?.includes(value)) {
-        setfoundClass(true);
-        console.log("HELLO");
-      } else if (status.foundOnWrongIndex?.includes(value)) {
-        setContainsClass(true);
-        console.log("HELLO");
-      } else if (status.notFound?.includes(value)) {
-        setNotFoundClass(true);
-      }
-    }
-
     setTimeout(() => {
       color();
-      setFlip("flip-cell");
+      setFlip(true);
+     
     }, 350 * index);
+  
   }, [status]);
-  // Check for colors should be done with a useffect otherwise shit just dont work
+
+  const color = () => {
+    const correct = correctWord[index] === value;
+    const almost = !correct && correctWord.includes(value);
+    if (correct) {
+      setLetterState("toggle-foundletter-color-green");
+    } else if (almost) {
+      setLetterState("toggle-containsletter-color-yellow");
+    } else {
+      setLetterState("toggle-not-found-color");
+    }
+  };
   return (
     <article
-      className={`cell ${value !== "" ? "bounce-oninput" : ""} ${
-        foundClass ? "toggle-foundletter-color-green" : ""
-      }  ${containsClass ? "toggle-containsletter-color-yellow" : ""} ${
-        notFoundClass ? "toggle-not-found-color" : ""
-      } ${flip} `}
+     
+      className={`cell ${value !== "" ? "bounce-oninput" : ""} 
+        ${letterState}
+        ${flip ? "flip-cell" : ""} `}
     >
       {value}
     </article>
   );
 }
+

@@ -26,15 +26,23 @@ function App() {
   });
   const [victory, setVictory] = useState(false);
   const [show, setShow] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [disabled, setDisabled] = useState(false);
+
   useEffect(() => {
     if (activeRow === 6 && victory === false) {
-      console.log("loss");
+      setModalMessage("You lost! Better luck next time");
+      setTimeout(() => {
+        setVictory(true);
+      }, 3000);
     }
   }, [activeRow]);
+
   useEffect(() => {
     let index = Math.floor(Math.random() * wordsList.length);
     setWord(wordsList[index]);
   }, []);
+
   useEffect(() => {
     if (victory) {
       setShow(true);
@@ -57,34 +65,40 @@ function App() {
   const handleKeyPress = (key) => {
     let keyUpper = key.toUpperCase();
     if (!victory) {
-      if (
-        column < gameArr[activeRow].length &&
-        keyUpper.length === 1 &&
-        isAlpha(keyUpper)
-      ) {
-        console.log("setGameArr is running");
-        setGameChar(keyUpper, activeRow, column);
-        setColumn((prevCol) => prevCol + 1);
-      } else if (column >= gameArr[activeRow].length && keyUpper === "ENTER") {
-        if (checkIfWordIsInList(gameArr[activeRow])) {
-          setError(null);
-          evaluteRow(gameArr[activeRow]);
-          setActiveRow((prevRow) => prevRow + 1);
-          setColumn(0);
-        } else {
-          setError("Word is not in list");
-          setTimeout(() => {
+      if (!disabled) {
+        if (
+          column < gameArr[activeRow].length &&
+          keyUpper.length === 1 &&
+          isAlpha(keyUpper)
+        ) {
+          console.log("setGameArr is running");
+          setGameChar(keyUpper, activeRow, column);
+          setColumn((prevCol) => prevCol + 1);
+        } else if (
+          column >= gameArr[activeRow].length &&
+          keyUpper === "ENTER"
+        ) {
+          if (checkIfWordIsInList(gameArr[activeRow])) {
             setError(null);
-          }, 2000);
+            evaluteRow(gameArr[activeRow]);
+            setActiveRow((prevRow) => prevRow + 1);
+            setDisabled(!disabled);
+            setColumn(0);
+          } else {
+            setError("Word is not in list");
+            setTimeout(() => {
+              setError(null);
+            }, 2000);
+          }
+        } else if (keyUpper === "BACKSPACE" && column > 0) {
+          console.log("Backspace running", column);
+          setGameChar("", activeRow, column - 1);
+          setColumn((prevCol) => prevCol - 1);
         }
-      } else if (keyUpper === "BACKSPACE" && column > 0) {
-        console.log("Backspace running", column);
-        setGameChar("", activeRow, column - 1);
-        setColumn((prevCol) => prevCol - 1);
       }
     }
   };
-
+  console.log(disabled);
   const evaluteRow = (row) => {
     let arr = [];
     let arr2 = [];
@@ -92,6 +106,7 @@ function App() {
     console.log("Row ", row);
     if (row.join("") === word) {
       console.log("won");
+      setModalMessage("Congratulations you won!");
       setTimeout(() => {
         setVictory(true);
       }, 3000);
@@ -118,8 +133,8 @@ function App() {
     console.log(typedWord);
     return wordsList.includes(typedWord);
   };
-  console.log(status);
 
+  const handleReset = () => {};
   return (
     <div
       onKeyDownCapture={(e) => {
@@ -129,15 +144,22 @@ function App() {
       className="wrapper"
     >
       <Header />
-      <Modal word={word} show={show} setShow={setShow} />
+      <Modal
+        word={word}
+        show={show}
+        modalMessage={modalMessage}
+        setShow={setShow}
+      />
       <div className="Game">
         {error ? <Error errorMsg={error} /> : <></>}
         <div className="game-wrapper">
           <Board
+            correctWord={word}
             activeRow={activeRow}
             status={status}
             error={error}
             gameArr={gameArr}
+            setDisabled={setDisabled}
           />
         </div>
         <Keyboard status={status} handleVirtualKeyboardPress={handleKeyPress} />
