@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import "../App.css";
+import { WordleContext } from "../App";
 
-export default function Cell({ value, status, index, correctWord,setDisabled }) {
+export default function Cell({ value,  index}) {
+  const {word,status,setDisabled} = useContext(WordleContext);
   const [letterState, setLetterState] = useState("");
   const [flip, setFlip] = useState(false);
   useEffect(() => {
@@ -13,12 +15,12 @@ export default function Cell({ value, status, index, correctWord,setDisabled }) 
       setFlip(true);
      
     }, 350 * index);
-  
+   
   }, [status]);
 
   const color = () => {
-    const correct = correctWord[index] === value;
-    const almost = !correct && correctWord.includes(value);
+    const correct = word[index] === value;
+    const almost = !correct && word.includes(value);
     if (correct) {
       setLetterState("toggle-foundletter-color-green");
     } else if (almost) {

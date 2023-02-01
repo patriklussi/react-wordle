@@ -59,6 +59,10 @@ html {
 
 }
 
+.key-row {
+  display: inherit;
+}
+
 .keyboard-button {
   height: 55px;
   min-width: 45px;
@@ -110,7 +114,7 @@ html {
 
 .toggle-foundletter-color-green {
   background-color: rgb(89, 209, 85);
- 
+
 
 }
 
@@ -151,15 +155,19 @@ html {
 
 header {
   height: 100px;
-display: flex;
-
   text-align: center;
   width: 100%;
   padding: 15px;
   box-sizing: border-box;
-  align-items: center;
-  justify-content: space-between;
 
+}
+.normal-content{
+  display: flex;
+  justify-content: space-between;
+}
+.menu-content {
+  display: flex;
+  justify-content: flex-end;
 }
 
 header h1 {
@@ -168,16 +176,19 @@ header h1 {
 
 
 }
+
 header h2 {
-justify-content: flex-end;
-margin-right: 15px;
-cursor: pointer;
-transition: all 0.15s linear;
+  justify-content: flex-end;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: all 0.15s linear;
 
 }
+
 header h2:hover {
   color: white;
 }
+
 .toggle-not-found-color {
   background: rgb(156, 156, 156);
 }
@@ -206,12 +217,12 @@ header h2:hover {
 }
 
 .modal {
-  position:fixed;
-  left:0;
-  bottom:0;
-  right:0;
-  top:0;
-  background-color: rgba(211, 211, 211, 0.548);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  background-color: rgba(104, 104, 104, 0.548);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -228,8 +239,21 @@ header h2:hover {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  
+  transition: 1s all linear;
+  animation: slideUp 0.1s linear;
 
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .replay-button {
@@ -249,16 +273,55 @@ header h2:hover {
   padding: 5px;
   border-radius: 5px;
   cursor: pointer;
- 
+
 }
+
 .modal-close-button:hover {
   background-color: rgb(189, 189, 189);
 }
 
 .modal-header {
 
-width: 100%;
-padding: 10px;
-display: flex;
-justify-content: flex-end;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+@media only screen and (max-width:550px) {
+  .game-wrapper {
+    width: 350px;
+    height: 410px;
+  }
+  header {
+    height: 50px;
+  }
+  .keyboard-wrapper {
+    width: 390px;
+  }
+
+  .cell {
+    font-size: 1.5rem;
+  }
+
+}
+
+@media only screen and (max-width:450px) {
+  .game-wrapper {
+    width: 320px;
+    height: 380px;
+  }
+
+  .keyboard-wrapper {
+    width: 360px;
+  }
+
+  .cell {
+    font-size: 1.5rem;
+  }
+
+  .keyboard-button {
+    min-width: 30px;
+  }
 }

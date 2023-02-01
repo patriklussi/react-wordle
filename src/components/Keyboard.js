@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../App.css";
 import Key from "../components/Key";
 
-export default function Keyboard({ handleVirtualKeyboardPress, status }) {
+export default function Keyboard({ handleVirtualKeyboardPress  }) {
   const allkeys = "QWERTYUIOPASDFGHJKLZXCVBNM".split("");
   const enter = "Enter";
   const backspace = "Backspace";
@@ -17,23 +17,24 @@ export default function Keyboard({ handleVirtualKeyboardPress, status }) {
   };
   return (
     <div className="keyboard-wrapper">
-      <div>
+      
+      <div className="key-row">
         {keyRow1?.map((value,index) => {
           return (
-            <Key key={index} status={status} value={value} handleClick={handleClick} />
+            <Key key={index} value={value} handleClick={handleClick} />
           );
         })}
       </div>
-      <div>
+      <div className="key-row">
         {keyRow2?.map((value,index) => {
           return (
-            <Key key={index} status={status} value={value} handleClick={handleClick} />
+            <Key key={index}  value={value} handleClick={handleClick} />
           );
         })}
       </div>
-      <div>
+      <div className="key-row">
       {keyRow3?.map((value,index) => {
-        return <Key key={index} status={status} value={value} handleClick={handleClick} />;
+        return <Key key={index}  value={value} handleClick={handleClick} />;
       })}
       </div>
     </div>

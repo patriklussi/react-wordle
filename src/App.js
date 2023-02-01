@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useReducer } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import wordsList from "./assets/wordlist";
 import "./App.css";
 import Board from "./components/Board";
@@ -6,6 +6,8 @@ import Keyboard from "./components/Keyboard";
 import Error from "./components/Error";
 import Header from "./components/Header";
 import Modal from "./components/Modal";
+
+export const WordleContext = createContext();
 function App() {
   const [word, setWord] = useState("");
   const [activeRow, setActiveRow] = useState(0);
@@ -28,7 +30,9 @@ function App() {
   const [show, setShow] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [disabled, setDisabled] = useState(false);
-
+  if (process.env.REACT_APP_STATUS === "development") {
+    console.log(word);
+  }
   useEffect(() => {
     if (activeRow === 6 && victory === false) {
       setModalMessage("You lost! Better luck next time");
@@ -48,7 +52,7 @@ function App() {
       setShow(true);
     }
   }, [victory]);
-  console.log(word);
+
   const isAlpha = (char) => {
     return /[A-Z]/.test(char);
   };
@@ -82,7 +86,7 @@ function App() {
             setError(null);
             evaluteRow(gameArr[activeRow]);
             setActiveRow((prevRow) => prevRow + 1);
-            setDisabled(!disabled);
+           
             setColumn(0);
           } else {
             setError("Word is not in list");
@@ -120,7 +124,6 @@ function App() {
         arr3.push(row[i]);
       }
     }
-
     setStatus({
       ...status,
       foundOnCorrectIndex: arr,
@@ -136,36 +139,37 @@ function App() {
 
   const handleReset = () => {};
   return (
-    <div
-      onKeyDownCapture={(e) => {
-        handleKeyPress(e.key);
-      }}
-      tabIndex={0}
-      className="wrapper"
+    <WordleContext.Provider
+      value={{ word, activeRow, status, error, gameArr, setDisabled,setShow,show }}
     >
-      <Header />
-      <Modal
-        word={word}
-        show={show}
-        modalMessage={modalMessage}
-        setShow={setShow}
-      />
-      <div className="Game">
-        {error ? <Error errorMsg={error} /> : <></>}
-        <div className="game-wrapper">
-          <Board
-            correctWord={word}
-            activeRow={activeRow}
+      <div
+        onKeyDownCapture={(e) => {
+          handleKeyPress(e.key);
+        }}
+        tabIndex={0}
+        className="wrapper"
+      >
+        <Header />
+        <Modal
+          modalMessage={modalMessage}
+        />
+        <div className="Game">
+          {error ? <Error  /> : <></>}
+          <div className="game-wrapper">
+            <Board
+              setDisabled={setDisabled}
+            />
+          </div>
+          <Keyboard
             status={status}
-            error={error}
-            gameArr={gameArr}
-            setDisabled={setDisabled}
+            handleVirtualKeyboardPress={handleKeyPress}
           />
         </div>
-        <Keyboard status={status} handleVirtualKeyboardPress={handleKeyPress} />
       </div>
-    </div>
+    </WordleContext.Provider>
   );
 }
 
 export default App;
+
+

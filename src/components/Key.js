@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import "../App.css";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import { IconButton } from "@mui/material";
-export default function Key({ value, handleClick, status }) {
+import { WordleContext } from "../App";
+export default function Key({ value, handleClick}) {
+  const {status} = useContext(WordleContext);
   const [foundClass, setfoundClass] = useState(false);
   const [containsClass, setContainsClass] = useState(false);
   const [notFoundClass, setNotFoundClass] = useState(false);
@@ -30,8 +32,8 @@ export default function Key({ value, handleClick, status }) {
         handleClick(value);
       }}
     >
-      {/* {value === "Backspace" ? <IconButton><BackspaceIcon fontSize="small"/></IconButton> : value} */}
-      {value}
+      {value === "Backspace" ? <BackspaceIcon fontSize="small" className="backspace"/>  : value}
+     
     </button>
   );
 }

@@ -1,7 +1,10 @@
-import React from "react";
+import React,{useContext} from "react";
+import "../App.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
-export default function VictoryMessage({ word, show , setShow,modalMessage }) {
+import { WordleContext } from "../App";
+export default function Modal({ modalMessage }) {
+  const {show,setShow,word} = useContext(WordleContext);
   if (!show) {
     return;
   }

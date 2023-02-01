@@ -1,28 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import Cell from "./Cell";
 import Keyboard from "./Keyboard";
 import "../App.css";
-import { Co2Sharp } from "@mui/icons-material";
-export default function Board({ gameArr, error, status, activeRow ,correctWord,setDisabled}) {
-  // useEffect(()=>{
+import { WordleContext } from "../App";
 
-  // },[status])
-  console.log(status);
+export default function Board() {
+  const { activeRow, error, gameArr } = useContext(WordleContext);
+
   return (
     <>
       {gameArr?.map((x, rowIndex) => {
-      
         return (
           <section
-            className={`row ${error && rowIndex === activeRow ? "shake-on-error" : ""}`}
+            className={`row ${
+              error && rowIndex === activeRow ? "shake-on-error" : ""
+            }`}
             key={rowIndex}
           >
             {x.map((value, columnIndex) => (
               <Cell
-               correctWord={correctWord}
-               setDisabled={setDisabled}
                 index={columnIndex}
-                status={status}
                 key={columnIndex}
                 value={value}
               />
