@@ -1,6 +1,7 @@
 import React, { useState ,useContext} from "react";
 import "../App.css";
 import MenuIcon from "@mui/icons-material/Menu";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { useMediaQuery } from "react-responsive";
 import { IconButton } from "@mui/material";
 import { WordleContext } from "../App";
@@ -18,7 +19,7 @@ export default function Header() {
       {isTabletOrPhone ? (
         <div className="normal-content">
           <h1>Wordle</h1>
-          <h2 onClick={openInfo}>How to play</h2>
+         <IconButton  onClick={openInfo}><HelpOutlineIcon  style={{color:"white"}} fontSize="large" /></IconButton> 
         
       
         </div>
