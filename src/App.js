@@ -6,7 +6,7 @@ import Keyboard from "./components/Keyboard";
 import Error from "./components/Error";
 import Header from "./components/Header";
 import Modal from "./components/Modal";
-
+import InfoModal from "./components/InfoModal";
 export const WordleContext = createContext();
 function App() {
   const [word, setWord] = useState("");
@@ -30,6 +30,7 @@ function App() {
   const [show, setShow] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [disabled, setDisabled] = useState(false);
+  const [showInfoModal,setShowInfoModal] = useState(false);
   if (process.env.REACT_APP_STATUS === "development") {
     console.log(word);
   }
@@ -140,7 +141,7 @@ function App() {
   const handleReset = () => {};
   return (
     <WordleContext.Provider
-      value={{ word, activeRow, status, error, gameArr, setDisabled,setShow,show }}
+      value={{ word, activeRow, status, error, gameArr, setDisabled,setShow,show,showInfoModal,setShowInfoModal }}
     >
       <div
         onKeyDownCapture={(e) => {
@@ -150,6 +151,7 @@ function App() {
         className="wrapper"
       >
         <Header />
+        <InfoModal/>
         <Modal
           modalMessage={modalMessage}
         />

@@ -4,8 +4,18 @@ html {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+:root {
+  --correct-guess-color: #59d155;
+  --is-in-letter-color: #d1d141;
+  --not-found-color: #535353;
+}
+
 * {
   box-sizing: border-box;
+}
+
+h1 {
+  margin: 0;
 }
 
 .wrapper {
@@ -113,18 +123,18 @@ html {
 }
 
 .toggle-foundletter-color-green {
-  background-color: rgb(89, 209, 85);
+  background-color: var(--correct-guess-color);
 
 
 }
 
 .toggle-containsletter-color-yellow {
-  background-color: #d1d141;
+  background-color: var(--is-in-letter-color);
 
 }
 
 .darkgray {
-  background-color: rgb(83, 83, 83);
+  background-color: var(--not-found-color);
 }
 
 .shake-on-error {
@@ -157,14 +167,19 @@ header {
   height: 100px;
   text-align: center;
   width: 100%;
-  padding: 15px;
   box-sizing: border-box;
 
 }
-.normal-content{
+
+.normal-content {
+  height: inherit;
+  width: inherit;
+  padding: 15px;
+  box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
+
 .menu-content {
   display: flex;
   justify-content: flex-end;
@@ -173,8 +188,7 @@ header {
 header h1 {
   color: white;
   margin: 0;
-
-
+  align-self: center;
 }
 
 header h2 {
@@ -182,7 +196,10 @@ header h2 {
   margin-right: 15px;
   cursor: pointer;
   transition: all 0.15s linear;
+}
 
+article h2 {
+  margin: 0;
 }
 
 header h2:hover {
@@ -230,18 +247,71 @@ header h2:hover {
 }
 
 .modal-content {
-  width: 425px;
-  height: 500px;
+  text-align: left;
+
+  min-width: 500px;
+  min-height: 550px;
   background-color: rgb(19, 19, 19);
   color: white;
-  padding: 20px 15px 15px 15px;
-  text-align: center;
+  padding: 25px;
+
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   transition: 1s all linear;
   animation: slideUp 0.1s linear;
 
+}
+
+.modal-content h1 {
+  font-size: 2.1rem;
+}
+
+.modal-content h3 {
+  margin: 0px 0px 10px 0px
+}
+
+.modal-body {
+  width: 100%;
+}
+
+.info-modal-ul {
+  margin: 0;
+  padding-left: 0;
+  list-style-position: inside;
+  margin:10px 0px 10px 0px;
+}
+
+.info-modal-ul li {
+  font-size: 15px;
+  line-height: 140%;
+
+
+}
+
+.example-cell {
+  width: 35px;
+  height: 35px;
+  border: 2px solid rgb(128, 128, 128);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.example-container {
+  display: flex;
+
+}
+
+.modal-example p {
+  margin: 10px 0 10px 0px;
+}
+
+.modal-content h4 {
+  margin: 10px 0px 10px 0px;
 }
 
 @keyframes slideUp {
@@ -257,11 +327,19 @@ header h2:hover {
 }
 
 .replay-button {
-  padding: 10px;
+  padding: 13px;
   background-color: white;
-  border-radius: 5px;
-  width: 120px;
+  width: 75%;
+  border-radius: 35px;
   cursor: pointer;
+
+  border: none;
+}
+
+.modal-footer {
+  text-align: center;
+  border-top: 2px solid white;
+  margin-top: 10px;
 }
 
 .replay-button:hover {
@@ -281,9 +359,6 @@ header h2:hover {
 }
 
 .modal-header {
-
-  width: 100%;
-  padding: 10px;
   display: flex;
   justify-content: flex-end;
 }
@@ -294,9 +369,11 @@ header h2:hover {
     width: 350px;
     height: 410px;
   }
+
   header {
     height: 50px;
   }
+
   .keyboard-wrapper {
     width: 390px;
   }
