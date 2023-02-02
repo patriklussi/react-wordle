@@ -7,7 +7,7 @@ html {
 :root {
   --correct-guess-color: #59d155;
   --is-in-letter-color: #d1d141;
-  --not-found-color: #535353;
+  --not-found-color: #9c9c9c;
 }
 
 * {
@@ -51,9 +51,10 @@ h1 {
 
 .cell {
   cursor: pointer;
-  border: 2px solid rgb(128, 128, 128);
+  border: 3px solid rgb(128, 128, 128);
   font-size: 2rem;
   display: flex;
+  font-weight: 700;
   align-items: center;
   justify-content: center;
   color: white;
@@ -105,7 +106,7 @@ h1 {
 
 .bounce-oninput {
   animation: bounce 0.1s linear;
-  border: 2px solid rgb(156, 156, 156);
+ 
 }
 
 @keyframes bounce {
@@ -124,17 +125,19 @@ h1 {
 
 .toggle-foundletter-color-green {
   background-color: var(--correct-guess-color);
+  border-color: var(--correct-guess-color);
 
 
 }
 
 .toggle-containsletter-color-yellow {
   background-color: var(--is-in-letter-color);
-
+  border-color: var(--is-in-letter-color);
 }
 
 .darkgray {
   background-color: var(--not-found-color);
+  border-color:var(--not-found-color) ;
 }
 
 .shake-on-error {
@@ -207,7 +210,8 @@ header h2:hover {
 }
 
 .toggle-not-found-color {
-  background: rgb(156, 156, 156);
+  background: var(--not-found-color);
+  border-color: var(--not-found-color);
 }
 
 .flip-cell {

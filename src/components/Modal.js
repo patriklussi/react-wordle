@@ -4,10 +4,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
 import { WordleContext } from "../App";
 export default function Modal({ modalMessage }) {
-  const { show, setShow, word } = useContext(WordleContext);
+  const { show, setShow, word, handleReset } = useContext(WordleContext);
   if (!show) {
     return;
   }
+  const playAgain = () => {
+    handleReset();
+    setShow(false);
+  };
   return (
     <div className="modal">
       <section className="modal-content">
@@ -30,7 +34,9 @@ export default function Modal({ modalMessage }) {
         </div>
         <footer className="modal-footer">
           {" "}
-          <button className="replay-button">Play again</button>
+          <button className="replay-button" onClick={playAgain}>
+            Play again
+          </button>
         </footer>
       </section>
     </div>

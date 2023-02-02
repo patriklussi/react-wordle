@@ -11,14 +11,9 @@ export const WordleContext = createContext();
 function App() {
   const [word, setWord] = useState("");
   const [activeRow, setActiveRow] = useState(0);
-  const [gameArr, setGameArr] = useState([
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-  ]);
+  const [gameArr, setGameArr] = useState(
+    [...Array(6)].map(() => [...Array(5)].map(() => ""))
+  );
   const [column, setColumn] = useState(0);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState({
@@ -30,38 +25,45 @@ function App() {
   const [show, setShow] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [disabled, setDisabled] = useState(false);
-  const [showInfoModal,setShowInfoModal] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false);
   if (process.env.REACT_APP_STATUS === "development") {
     console.log(word);
   }
   useEffect(() => {
     if (activeRow === 6 && victory === false) {
-      setModalMessage("You lost! Better luck next time");
+      console.log("I RAN");
       setTimeout(() => {
-        setVictory(true);
+        setModalMessage("You lost! Better luck next time");
+        setShow(true);
+        setDisabled(!disabled);
       }, 3000);
     }
   }, [activeRow]);
 
   useEffect(() => {
-    let index = Math.floor(Math.random() * wordsList.length);
-    setWord(wordsList[index]);
-  }, []);
+    console.log("ran");
+    getWord();
+  }, [setGameArr]);
 
   useEffect(() => {
     if (victory) {
       setShow(true);
+      setModalMessage("Congratulations you won!");
+      setDisabled(!disabled);
     }
   }, [victory]);
 
-  const isAlpha = (char) => {
+  const isAlphabetLetter = (char) => {
     return /[A-Z]/.test(char);
   };
+  const getWord = () => {
+    let index = Math.floor(Math.random() * wordsList.length);
+    setWord(wordsList[index]);
+  };
 
-  const setGameChar = (char, row, col) => {
+  const setWordInCell = (char, row, col) => {
     setGameArr((prevState) => {
       let newState = [...prevState];
-      console.log(newState);
       newState[row][col] = char;
       return newState;
     });
@@ -69,67 +71,59 @@ function App() {
 
   const handleKeyPress = (key) => {
     let keyUpper = key.toUpperCase();
-    if (!victory) {
-      if (!disabled) {
-        if (
-          column < gameArr[activeRow].length &&
-          keyUpper.length === 1 &&
-          isAlpha(keyUpper)
-        ) {
-          console.log("setGameArr is running");
-          setGameChar(keyUpper, activeRow, column);
-          setColumn((prevCol) => prevCol + 1);
-        } else if (
-          column >= gameArr[activeRow].length &&
-          keyUpper === "ENTER"
-        ) {
-          if (checkIfWordIsInList(gameArr[activeRow])) {
+    if (!disabled) {
+      if (
+        column < gameArr[activeRow].length &&
+        keyUpper.length === 1 &&
+        isAlphabetLetter(keyUpper)
+      ) {
+        console.log("setGameArr is running");
+        setWordInCell(keyUpper, activeRow, column);
+        setColumn((prevCol) => prevCol + 1);
+      } else if (column >= gameArr[activeRow].length && keyUpper === "ENTER") {
+        if (checkIfWordIsInList(gameArr[activeRow])) {
+          setError(null);
+          evaluteRow(gameArr[activeRow]);
+          setActiveRow((prevRow) => prevRow + 1);
+          setColumn(0);
+        } else {
+          setError("Word is not in list");
+          setTimeout(() => {
             setError(null);
-            evaluteRow(gameArr[activeRow]);
-            setActiveRow((prevRow) => prevRow + 1);
-           
-            setColumn(0);
-          } else {
-            setError("Word is not in list");
-            setTimeout(() => {
-              setError(null);
-            }, 2000);
-          }
-        } else if (keyUpper === "BACKSPACE" && column > 0) {
-          console.log("Backspace running", column);
-          setGameChar("", activeRow, column - 1);
-          setColumn((prevCol) => prevCol - 1);
+          }, 2000);
         }
+      } else if (keyUpper === "BACKSPACE" && column > 0) {
+        console.log("Backspace running", column);
+        setWordInCell("", activeRow, column - 1);
+        setColumn((prevCol) => prevCol - 1);
       }
     }
   };
   console.log(disabled);
   const evaluteRow = (row) => {
-    let arr = [];
-    let arr2 = [];
-    let arr3 = [];
+    let foundOnRightIndexInWord = [];
+    let foundOnNotRightIndexInWord = [];
+    let notFoundInWord = [];
     console.log("Row ", row);
     if (row.join("") === word) {
-      console.log("won");
-      setModalMessage("Congratulations you won!");
       setTimeout(() => {
         setVictory(true);
       }, 3000);
     }
     for (let i = 0; i < row.length; i++) {
       if (row[i] === word[i]) {
-        arr.push(row[i]);
+        foundOnRightIndexInWord.push(row[i]);
       } else if (word.includes(row[i])) {
-        arr2.push(row[i]);
+        foundOnNotRightIndexInWord.push(row[i]);
       } else {
-        arr3.push(row[i]);
+        notFoundInWord.push(row[i]);
       }
     }
     setStatus({
       ...status,
-      foundOnCorrectIndex: arr,
-      foundOnWrongIndex: arr2,
-      notFound: arr3,
+      foundOnCorrectIndex: foundOnRightIndexInWord,
+      foundOnWrongIndex: foundOnNotRightIndexInWord,
+      notFound: notFoundInWord,
     });
   };
   const checkIfWordIsInList = (selectedRow) => {
@@ -138,10 +132,31 @@ function App() {
     return wordsList.includes(typedWord);
   };
 
-  const handleReset = () => {};
+  const handleReset = () => {
+    setGameArr([...Array(6)].map(() => [...Array(5)].map(() => "")));
+    setStatus({
+      foundOnCorrectIndex: [],
+      foundOnWrongIndex: [],
+      notFound: [],
+    });
+    setDisabled(false);
+    setActiveRow(0);
+  };
   return (
     <WordleContext.Provider
-      value={{ word, activeRow, status, error, gameArr, setDisabled,setShow,show,showInfoModal,setShowInfoModal }}
+      value={{
+        word,
+        activeRow,
+        status,
+        error,
+        gameArr,
+        setDisabled,
+        setShow,
+        show,
+        showInfoModal,
+        setShowInfoModal,
+        handleReset,
+      }}
     >
       <div
         onKeyDownCapture={(e) => {
@@ -151,16 +166,12 @@ function App() {
         className="wrapper"
       >
         <Header />
-        <InfoModal/>
-        <Modal
-          modalMessage={modalMessage}
-        />
+        <InfoModal />
+        <Modal modalMessage={modalMessage} />
         <div className="Game">
-          {error ? <Error  /> : <></>}
+          {error ? <Error /> : <></>}
           <div className="game-wrapper">
-            <Board
-              setDisabled={setDisabled}
-            />
+            <Board setDisabled={setDisabled} />
           </div>
           <Keyboard
             status={status}
@@ -173,5 +184,3 @@ function App() {
 }
 
 export default App;
-
-
