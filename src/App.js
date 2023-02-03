@@ -26,6 +26,7 @@ function App() {
   const [modalMessage, setModalMessage] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
+  const [test,setTest] = useState();
   if (process.env.REACT_APP_STATUS === "development") {
     console.log(word);
   }
@@ -119,6 +120,7 @@ function App() {
         notFoundInWord.push(row[i]);
       }
     }
+    setTest(row);
     setStatus({
       ...status,
       foundOnCorrectIndex: foundOnRightIndexInWord,
@@ -156,6 +158,7 @@ function App() {
         showInfoModal,
         setShowInfoModal,
         handleReset,
+        test,
       }}
     >
       <div

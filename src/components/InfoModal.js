@@ -4,12 +4,16 @@ import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
 import { WordleContext } from "../App";
 export default function InfoModal() {
-  const {  showInfoModal, setShowInfoModal,setDisabled  } = useContext(WordleContext);
+  const {  showInfoModal, setShowInfoModal,setDisabled,handleReset  } = useContext(WordleContext);
   if (!showInfoModal) {
     return;
   }
+  const closeAndResetBoard = () => {
+    handleReset();
+    setShowInfoModal(false);
+  }
   return (
-    <div className="modal">
+    <div className="modal" >
       <section className="modal-content">
         <div className="modal-header">
           <IconButton
@@ -77,7 +81,7 @@ export default function InfoModal() {
             I hope this helped clear things up<br></br> Now go and have fun with
             the game!
           </p>
-          <button className="replay-button">Play!</button>
+          <button onClick={closeAndResetBoard} className="replay-button">Play!</button>
         </footer>
       </section>
     </div>

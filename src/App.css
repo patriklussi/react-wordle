@@ -263,7 +263,7 @@ header h2:hover {
   display: flex;
   flex-direction: column;
   transition: 1s all linear;
-  animation: slideUp 0.1s linear;
+  animation: slideUp 0.5s forwards;
 
 }
 

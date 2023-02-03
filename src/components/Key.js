@@ -1,39 +1,46 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../App.css";
 import BackspaceIcon from "@mui/icons-material/Backspace";
-import { IconButton } from "@mui/material";
 import { WordleContext } from "../App";
-export default function Key({ value, handleClick}) {
-  const {status} = useContext(WordleContext);
-  const [foundClass, setfoundClass] = useState(false);
-  const [containsClass, setContainsClass] = useState(false);
-  const [notFoundClass, setNotFoundClass] = useState(false);
+export default function Key({ value, handleClick }) {
+  const { status, test,word } = useContext(WordleContext);
+  const [keyState, setKeyState] = useState("");
   useEffect(() => {
+    if(!test?.includes(value)){
+      return;
+    }
     colorKeys(value);
   }, [status]);
 
   const colorKeys = (value) => {
-    if (status.foundOnCorrectIndex?.includes(value)) {
-      setfoundClass(true);
-    } else if (status.foundOnWrongIndex?.includes(value)) {
-      setContainsClass(true);
-    } else if (status.notFound?.includes(value)) {
-      setNotFoundClass(true);
-    }
+    let indexOfValueInInputWord = test?.indexOf(value);
+    
+       
+    if (indexOfValueInInputWord !== -1) {
+      console.log(value);
+      const correct = word[indexOfValueInInputWord] === value;
+      const almost = !correct && word.includes(value);
+      if (correct) {
+        setKeyState("toggle-foundletter-color-green");
+      } else if (almost) {
+        setKeyState("toggle-containsletter-color-yellow");
+      } else {
+        setKeyState("toggle-not-found-color");
+      }
+    } 
   };
   return (
     <button
-      className={`keyboard-button ${
-        foundClass ? "toggle-foundletter-color-green" : ""
-      }  ${containsClass ? "toggle-containsletter-color-yellow" : ""} ${
-        notFoundClass ? "toggle-not-found-color" : ""
-      } `}
+      className={`keyboard-button ${keyState} `}
       onClick={() => {
         handleClick(value);
       }}
     >
-      {value === "Backspace" ? <BackspaceIcon fontSize="small" className="backspace"/>  : value}
-     
+      {value === "Backspace" ? (
+        <BackspaceIcon fontSize="small" className="backspace" />
+      ) : (
+        value
+      )}
     </button>
   );
 }

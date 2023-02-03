@@ -3,9 +3,10 @@ import "../App.css";
 import { WordleContext } from "../App";
 
 export default function Cell({ value,  index}) {
-  const {word,status,setDisabled,handleReset} = useContext(WordleContext);
+  const {word,status,setDisabled,handleReset,activeRow} = useContext(WordleContext);
   const [letterState, setLetterState] = useState("");
   const [flip, setFlip] = useState(false);
+  
 
   useEffect(() => {
     
