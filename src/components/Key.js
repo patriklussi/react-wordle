@@ -3,19 +3,22 @@ import "../App.css";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import { WordleContext } from "../App";
 export default function Key({ value, handleClick }) {
-  const { status, test,word } = useContext(WordleContext);
+  const {  inputWord,word ,reset} = useContext(WordleContext);
   const [keyState, setKeyState] = useState("");
   useEffect(() => {
-    if(!test?.includes(value)){
+    if(!inputWord?.includes(value)){
       return;
     }
     colorKeys(value);
-  }, [status]);
-
+  }, [inputWord]);
+  useEffect(()=>{
+    console.log("reset",reset); 
+    if(reset){
+      setKeyState("");
+    }
+  },[reset])
   const colorKeys = (value) => {
-    let indexOfValueInInputWord = test?.indexOf(value);
-    
-       
+    let indexOfValueInInputWord = inputWord?.indexOf(value);
     if (indexOfValueInInputWord !== -1) {
       console.log(value);
       const correct = word[indexOfValueInInputWord] === value;

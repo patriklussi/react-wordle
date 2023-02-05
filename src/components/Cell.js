@@ -1,25 +1,27 @@
-import React, { useEffect, useState,useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../App.css";
 import { WordleContext } from "../App";
 
-export default function Cell({ value,  index}) {
-  const {word,status,setDisabled,handleReset,activeRow} = useContext(WordleContext);
+export default function Cell({ value, index }) {
+  const { word, inputWord,reset } = useContext(WordleContext);
   const [letterState, setLetterState] = useState("");
   const [flip, setFlip] = useState(false);
-  
-
+  useEffect(()=>{
+    console.log("reset",reset);
+    if(reset){
+      setLetterState("");
+      setFlip(false);
+    }
+  },[reset])
   useEffect(() => {
-    
     if (value === "") {
       return;
     }
     setTimeout(() => {
       color();
       setFlip(true);
-     
     }, 350 * index);
-   
-  }, [status]);
+  }, [inputWord]);
 
   const color = () => {
     const correct = word[index] === value;
@@ -34,7 +36,6 @@ export default function Cell({ value,  index}) {
   };
   return (
     <article
-     
       className={`cell ${value !== "" ? "bounce-oninput" : ""} 
         ${letterState}
         ${flip ? "flip-cell" : ""} `}
@@ -43,4 +44,3 @@ export default function Cell({ value,  index}) {
     </article>
   );
 }
-

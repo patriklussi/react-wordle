@@ -16,23 +16,19 @@ function App() {
   );
   const [column, setColumn] = useState(0);
   const [error, setError] = useState(null);
-  const [status, setStatus] = useState({
-    foundOnCorrectIndex: [],
-    foundOnWrongIndex: [],
-    notFound: [],
-  });
-  const [victory, setVictory] = useState(false);
+
   const [show, setShow] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
-  const [test,setTest] = useState();
+  const [inputWord, setInputWord] = useState();
+  const [reset,setReset] = useState(false);
   if (process.env.REACT_APP_STATUS === "development") {
     console.log(word);
   }
+  
   useEffect(() => {
-    if (activeRow === 6 && victory === false) {
-      console.log("I RAN");
+    if (activeRow === 6 && disabled === false) {
       setTimeout(() => {
         setModalMessage("You lost! Better luck next time");
         setShow(true);
@@ -42,17 +38,15 @@ function App() {
   }, [activeRow]);
 
   useEffect(() => {
-    console.log("ran");
     getWord();
   }, [setGameArr]);
 
   useEffect(() => {
-    if (victory) {
+    if (disabled) {
       setShow(true);
       setModalMessage("Congratulations you won!");
-      setDisabled(!disabled);
     }
-  }, [victory]);
+  }, [disabled]);
 
   const isAlphabetLetter = (char) => {
     return /[A-Z]/.test(char);
@@ -71,6 +65,7 @@ function App() {
   };
 
   const handleKeyPress = (key) => {
+    setReset(false);
     let keyUpper = key.toUpperCase();
     if (!disabled) {
       if (
@@ -78,7 +73,6 @@ function App() {
         keyUpper.length === 1 &&
         isAlphabetLetter(keyUpper)
       ) {
-        console.log("setGameArr is running");
         setWordInCell(keyUpper, activeRow, column);
         setColumn((prevCol) => prevCol + 1);
       } else if (column >= gameArr[activeRow].length && keyUpper === "ENTER") {
@@ -94,62 +88,38 @@ function App() {
           }, 2000);
         }
       } else if (keyUpper === "BACKSPACE" && column > 0) {
-        console.log("Backspace running", column);
         setWordInCell("", activeRow, column - 1);
         setColumn((prevCol) => prevCol - 1);
       }
     }
   };
-  console.log(disabled);
+
   const evaluteRow = (row) => {
-    let foundOnRightIndexInWord = [];
-    let foundOnNotRightIndexInWord = [];
-    let notFoundInWord = [];
-    console.log("Row ", row);
     if (row.join("") === word) {
       setTimeout(() => {
-        setVictory(true);
+       setDisabled(!disabled)
       }, 3000);
     }
-    for (let i = 0; i < row.length; i++) {
-      if (row[i] === word[i]) {
-        foundOnRightIndexInWord.push(row[i]);
-      } else if (word.includes(row[i])) {
-        foundOnNotRightIndexInWord.push(row[i]);
-      } else {
-        notFoundInWord.push(row[i]);
-      }
-    }
-    setTest(row);
-    setStatus({
-      ...status,
-      foundOnCorrectIndex: foundOnRightIndexInWord,
-      foundOnWrongIndex: foundOnNotRightIndexInWord,
-      notFound: notFoundInWord,
-    });
+    setInputWord(row);
   };
   const checkIfWordIsInList = (selectedRow) => {
     let typedWord = selectedRow.join("");
-    console.log(typedWord);
     return wordsList.includes(typedWord);
   };
 
   const handleReset = () => {
     setGameArr([...Array(6)].map(() => [...Array(5)].map(() => "")));
-    setStatus({
-      foundOnCorrectIndex: [],
-      foundOnWrongIndex: [],
-      notFound: [],
-    });
     setDisabled(false);
     setActiveRow(0);
+    setReset(!reset);
+    getWord();
   };
+  console.log("reset",reset);
   return (
     <WordleContext.Provider
       value={{
         word,
         activeRow,
-        status,
         error,
         gameArr,
         setDisabled,
@@ -158,7 +128,8 @@ function App() {
         showInfoModal,
         setShowInfoModal,
         handleReset,
-        test,
+        inputWord,
+        reset,
       }}
     >
       <div
@@ -176,10 +147,7 @@ function App() {
           <div className="game-wrapper">
             <Board setDisabled={setDisabled} />
           </div>
-          <Keyboard
-            status={status}
-            handleVirtualKeyboardPress={handleKeyPress}
-          />
+          <Keyboard handleVirtualKeyboardPress={handleKeyPress} />
         </div>
       </div>
     </WordleContext.Provider>
