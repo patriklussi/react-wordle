@@ -1,6 +1,6 @@
 import React,{useContext} from 'react'
 import "../App.css";
-import { WordleContext } from '../App';
+import { WordleContext } from "../components/Game";
 export default function Error() {
   const {error} = useContext(WordleContext)
   return (

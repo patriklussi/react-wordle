@@ -1,29 +1,29 @@
 import React, { useEffect, useState, useContext } from "react";
 import "../App.css";
-import { WordleContext } from "../App";
+import { WordleContext } from "../components/Game";
 
 export default function Cell({ value, index }) {
-  const { word, inputWord,reset } = useContext(WordleContext);
+  const { word, inputWord, reset } = useContext(WordleContext);
   const [letterState, setLetterState] = useState("");
   const [flip, setFlip] = useState(false);
-  useEffect(()=>{
-    console.log("reset",reset);
-    if(reset){
+  useEffect(() => {
+    console.log("reset", reset);
+    if (reset) {
       setLetterState("");
       setFlip(false);
     }
-  },[reset])
+  }, [reset]);
   useEffect(() => {
     if (value === "") {
       return;
     }
     setTimeout(() => {
-      color();
+      colorCells();
       setFlip(true);
     }, 350 * index);
   }, [inputWord]);
 
-  const color = () => {
+  const colorCells = () => {
     const correct = word[index] === value;
     const almost = !correct && word.includes(value);
     if (correct) {

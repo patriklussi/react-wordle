@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "../App.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
-import { WordleContext } from "../App";
+import { WordleContext } from "../components/Game";
 export default function Modal({ modalMessage }) {
   const { show, setShow, word, handleReset } = useContext(WordleContext);
   if (!show) {

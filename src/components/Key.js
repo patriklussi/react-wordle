@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../App.css";
 import BackspaceIcon from "@mui/icons-material/Backspace";
-import { WordleContext } from "../App";
+import { WordleContext } from "../components/Game";
 export default function Key({ value, handleClick }) {
   const {  inputWord,word ,reset} = useContext(WordleContext);
   const [keyState, setKeyState] = useState("");
@@ -20,7 +20,7 @@ export default function Key({ value, handleClick }) {
   const colorKeys = (value) => {
     let indexOfValueInInputWord = inputWord?.indexOf(value);
     if (indexOfValueInInputWord !== -1) {
-      console.log(value);
+   
       const correct = word[indexOfValueInInputWord] === value;
       const almost = !correct && word.includes(value);
       if (correct) {
@@ -34,13 +34,13 @@ export default function Key({ value, handleClick }) {
   };
   return (
     <button
-      className={`keyboard-button ${keyState} `}
+      className={`${value === "Backspace" ? "wide-keyboard-button" : value === "Enter" ? "wide-keyboard-button" : "keyboard-button"} ${keyState}  `}
       onClick={() => {
         handleClick(value);
       }}
     >
       {value === "Backspace" ? (
-        <BackspaceIcon fontSize="small" className="backspace" />
+        <BackspaceIcon  fontSize="small" className="backspace" />
       ) : (
         value
       )}

@@ -2,8 +2,7 @@ import React, { useEffect, useContext } from "react";
 import Cell from "./Cell";
 import Keyboard from "./Keyboard";
 import "../App.css";
-import { WordleContext } from "../App";
-
+import { WordleContext } from "../components/Game";
 export default function Board() {
   const { activeRow, error, gameArr } = useContext(WordleContext);
 
