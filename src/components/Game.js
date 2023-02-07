@@ -112,6 +112,7 @@ function Game() {
     setGameArr([...Array(6)].map(() => [...Array(5)].map(() => "")));
     setDisabled(false);
     setActiveRow(0);
+    setGameWon(false);
     setReset(!reset);
     getWord();
   };
@@ -131,6 +132,7 @@ function Game() {
         handleReset,
         inputWord,
         reset,
+        gameWon
       }}
     >
       <div

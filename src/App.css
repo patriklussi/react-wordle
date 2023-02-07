@@ -83,6 +83,7 @@ h1 {
   border-radius: 5px;
   font-weight: bold;
 }
+
 .wide-keyboard-button {
   height: 55px;
   min-width: 65px;
@@ -190,17 +191,15 @@ header {
   box-sizing: border-box;
   display: flex;
   justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
-.menu-content {
-  display: flex;
-  justify-content: flex-end;
-}
+
 
 header h1 {
   color: white;
-  margin: 0;
-  align-self: center;
+  ;
 }
 
 header h2 {
@@ -276,6 +275,21 @@ header h2:hover {
 
 }
 
+.modal-content-victory {
+  text-align: center;
+  width: 500px;
+  height: 550px;
+  background-color: rgb(19, 19, 19);
+  color: white;
+  padding: 25px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 1s all linear;
+  animation: slideUp 0.5s forwards;
+}
+
 .modal-content h1 {
   font-size: 2.1rem;
 }
@@ -298,8 +312,6 @@ header h2:hover {
 .info-modal-ul li {
   font-size: 15px;
   line-height: 140%;
-
-
 }
 
 .example-cell {
@@ -316,7 +328,6 @@ header h2:hover {
 
 .example-container {
   display: flex;
-
 }
 
 .modal-example p {
@@ -330,12 +341,10 @@ header h2:hover {
 @keyframes slideUp {
   0% {
     transform: translateY(25px);
-
   }
 
   100% {
     transform: translateY(0);
-
   }
 }
 
@@ -345,7 +354,6 @@ header h2:hover {
   width: 75%;
   border-radius: 35px;
   cursor: pointer;
-
   border: none;
 }
 
@@ -353,6 +361,14 @@ header h2:hover {
   text-align: center;
   border-top: 2px solid white;
   margin-top: 10px;
+}
+
+.modal-footer-victory {
+  text-align: center;
+  border-top: 2px solid white;
+  margin-top: 10px;
+  padding-top: 25px;
+  justify-self: flex-end;
 }
 
 .replay-button:hover {
@@ -364,7 +380,6 @@ header h2:hover {
   padding: 5px;
   border-radius: 5px;
   cursor: pointer;
-
 }
 
 .modal-close-button:hover {
@@ -383,15 +398,33 @@ header h2:hover {
     height: 410px;
   }
 
+  .modal-content {
+   width: 100%;
+  min-width: 0;
+  padding:20px;
+  }
+  .modal-content-victory {
+    width: 100%;
+    min-width: 0;
+    padding:20px;
+  }
+
   header {
     height: 50px;
   }
-  .wide-keyboard-button {
-      min-width: 45px;
+
+  header h1 {
+    font-size: 1.5rem;
   }
+
+  .wide-keyboard-button {
+    min-width: 45px;
+  }
+
   .keyboard-button {
     min-width: 35px;
   }
+
   .keyboard-wrapper {
     width: 390px;
   }
@@ -408,12 +441,18 @@ header h2:hover {
     height: 380px;
   }
 
+  header h1 {
+    font-size: 1.5rem;
+  }
+
   .keyboard-wrapper {
     width: 360px;
   }
+
   .wide-keyboard-button {
-      min-width: 30px;
+    min-width: 30px;
   }
+
   .cell {
     font-size: 1.5rem;
   }
