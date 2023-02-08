@@ -8,7 +8,6 @@ Once the user wins there is an opportunity to play again as many times as the us
 
 # Demo
 
-
 # Setup
 
 ## Install dependencies
