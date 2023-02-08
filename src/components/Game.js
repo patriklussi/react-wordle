@@ -23,6 +23,7 @@ function Game() {
   const [inputWord, setInputWord] = useState();
   const [reset, setReset] = useState(false);
   const [gameWon, setGameWon] = useState(false);
+  
   if (process.env.REACT_APP_STATUS === "development") {
     console.log(word);
   }
@@ -63,7 +64,7 @@ function Game() {
       return newState;
     });
   };
-
+  console.log(column);
   const handleKeyPress = (key) => {
     setReset(false);
     let keyUpper = key.toUpperCase();
@@ -75,14 +76,21 @@ function Game() {
       ) {
         setWordInCell(keyUpper, activeRow, column);
         setColumn((prevCol) => prevCol + 1);
-      } else if (column >= gameArr[activeRow].length && keyUpper === "ENTER") {
-        if (checkIfWordIsInList(gameArr[activeRow])) {
-          setError(null);
-          evaluteRow(gameArr[activeRow]);
-          setActiveRow((prevRow) => prevRow + 1);
-          setColumn(0);
+      } else if (keyUpper === "ENTER") {
+        if (column >= gameArr[activeRow].length) {
+          if (checkIfWordIsInList(gameArr[activeRow])) {
+            setError(null);
+            evaluteRow(gameArr[activeRow]);
+            setActiveRow((prevRow) => prevRow + 1);
+            setColumn(0);
+          } else {
+            setError("Word is not in list");
+            setTimeout(() => {
+              setError(null);
+            }, 2000);
+          }
         } else {
-          setError("Word is not in list");
+          setError("Please enter a full word");
           setTimeout(() => {
             setError(null);
           }, 2000);
@@ -132,7 +140,7 @@ function Game() {
         handleReset,
         inputWord,
         reset,
-        gameWon
+        gameWon,
       }}
     >
       <div
