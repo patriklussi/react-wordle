@@ -32,17 +32,22 @@ export default function Modal({ modalMessage }) {
             <h1>{modalMessage}</h1>
           </div>
           <h3>The word was {word}!</h3>
-          {gameWon ? (
-            <h3>You found the word in {activeRow} attempts</h3>
-          ) : (
-            <h3>You failed to find the word in {activeRow} attempts</h3>
-          )}
         </div>
         <footer className="modal-footer-victory">
           {" "}
           <button className="replay-button" onClick={playAgain}>
             Play again
           </button>
+          <span className="divider-span">Or</span>
+          <a
+            className="replay-button green-button page-link"
+            href="https://www.nytimes.com/games/wordle/index.html"
+            hrefLang="en"
+            target="_blank"
+          >
+            {" "}
+            Play real wordle{" "}
+          </a>
         </footer>
       </section>
     </div>

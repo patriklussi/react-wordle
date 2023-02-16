@@ -192,7 +192,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 
@@ -200,6 +200,7 @@ header {
 header h1 {
   color: white;
   ;
+  margin-left: 25px;
 }
 
 header h2 {
@@ -351,10 +352,14 @@ header h2:hover {
 .replay-button {
   padding: 13px;
   background-color: white;
-  width: 75%;
+  width: 55%;
   border-radius: 35px;
   cursor: pointer;
   border: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
 }
 
 .modal-footer {
@@ -365,12 +370,29 @@ header h2:hover {
 
 .modal-footer-victory {
   text-align: center;
-  border-top: 2px solid white;
   margin-top: 10px;
-  padding-top: 25px;
   justify-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+.green-button {
+  background-color: #008000;
+  color:white;
 
+}
+.green-button:hover {
+  color:black;
+ 
+}
+.page-link {
+  text-decoration: none;
+  color:inherit;
+}
+.divider-span {
+  margin:10px 0px 10px 0px;
+  font-weight: bolder;
+}
 .replay-button:hover {
   background-color: rgb(189, 189, 189);
 }
