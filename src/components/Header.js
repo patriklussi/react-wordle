@@ -13,7 +13,6 @@ export default function Header() {
   return (
     <header>
       <div className="normal-content">
-
         <h1>Wordle</h1>
         <IconButton style={{marginRight:"25px"}} className="right" role="button" onClick={openInfo}>
           <HelpOutlineIcon style={{ color: "white" }} fontSize="large" />
