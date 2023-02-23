@@ -44,6 +44,7 @@ export default function Modal({ modalMessage }) {
             href="https://www.nytimes.com/games/wordle/index.html"
             hrefLang="en"
             target="_blank"
+            rel="noreferrer"
           >
             {" "}
             Play real wordle{" "}
