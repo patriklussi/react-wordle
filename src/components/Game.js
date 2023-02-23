@@ -24,9 +24,7 @@ function Game() {
   const [reset, setReset] = useState(false);
   const [gameWon, setGameWon] = useState(false);
   
-  if (process.env.REACT_APP_STATUS === "development") {
-    console.log(word);
-  }
+ 
 
   useEffect(() => {
     if (activeRow === 6 && gameWon === false) {
@@ -64,7 +62,7 @@ function Game() {
       return newState;
     });
   };
-  console.log(column);
+
   const handleKeyPress = (key) => {
     setReset(false);
     let keyUpper = key.toUpperCase();
@@ -124,7 +122,7 @@ function Game() {
     setReset(!reset);
     getWord();
   };
-  console.log("reset", reset);
+
   return (
     <WordleContext.Provider
       value={{

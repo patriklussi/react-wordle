@@ -7,7 +7,7 @@ export default function Cell({ value, index }) {
   const [letterState, setLetterState] = useState("");
   const [flip, setFlip] = useState(false);
   useEffect(() => {
-    console.log("reset", reset);
+  
     if (reset) {
       setLetterState("");
       setFlip(false);

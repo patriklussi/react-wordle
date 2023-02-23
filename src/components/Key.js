@@ -12,7 +12,7 @@ export default function Key({ value, handleClick }) {
     colorKeys(value);
   }, [inputWord]);
   useEffect(()=>{
-    console.log("reset",reset); 
+  
     if(reset){
       setKeyState("");
     }
