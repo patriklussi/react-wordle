@@ -1,6 +1,5 @@
-import React, { useEffect, useContext } from "react";
+import React, {  useContext } from "react";
 import Cell from "./Cell";
-import Keyboard from "./Keyboard";
 import "../App.css";
 import { WordleContext } from "../components/Game";
 export default function Board() {
