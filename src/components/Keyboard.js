@@ -1,7 +1,7 @@
 import React, { } from "react";
 import "../App.css";
 import Key from "../components/Key";
-import { keyRow1,keyRow2,keyRow3 } from "../Utils/keyboardUtils";
+import { keyRow1,keyRow2,keyRow3 } from "../Helpers/keyboardUtils";
 export default function Keyboard({ handleVirtualKeyboardPress  }) {
  
   const handleClick = (value) => {

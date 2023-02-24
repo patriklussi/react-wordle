@@ -1,12 +1,19 @@
 import React, { useEffect, useState, createContext } from "react";
+//Words
 import wordsList from "../assets/wordlist";
+//Css
 import "../App.css";
+//Components
 import Board from "./Board";
 import Keyboard from "./Keyboard";
 import Error from "./Error";
 import Header from "./Header";
 import Modal from "./Modal";
 import InfoModal from "./InfoModal";
+
+//Helpers 
+import { isAlphabetLetter,checkIfWordIsInList } from "../Helpers/Utils";
+
 export const WordleContext = createContext();
 function Game() {
   const [word, setWord] = useState("");
@@ -47,9 +54,7 @@ function Game() {
     }
   }, [gameWon]);
 
-  const isAlphabetLetter = (char) => {
-    return /[A-Z]/.test(char);
-  };
+
   const getWord = () => {
     let index = Math.floor(Math.random() * wordsList.length);
     setWord(wordsList[index]);
@@ -109,10 +114,7 @@ function Game() {
     }
     setInputWord(row);
   };
-  const checkIfWordIsInList = (selectedRow) => {
-    let typedWord = selectedRow.join("");
-    return wordsList.includes(typedWord);
-  };
+
 
   const handleReset = () => {
     setGameArr([...Array(6)].map(() => [...Array(5)].map(() => "")));
