@@ -1,31 +1,34 @@
-body,html {
+*,*::before,*::after {
+	box-sizing: border-box;
 	margin: 0;
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	padding: 0;
 }
 :root {
 	--correct-guess-color: #59d155;
 	--is-in-letter-color: #d1d141;
 	--not-found-color: #9c9c9c;
+	--background:#000000da;
 }
-* {
-	box-sizing: border-box;
+
+body {
+display: grid;
+place-items: center;
+background-color: var(--background);
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-h1 {
-	margin: 0;
-}
+
+
 .wrapper {
-	height: 100vh;
-	background-color: #000000da;
+
 	position: relative;
+	width: 100vw;
+	display: grid;
+	place-items: center;
 }
-.Game {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+.wrapper:focus-visible {
+	outline: transparent;
 }
 .game-wrapper {
-	box-sizing: border-box;
 	padding: 15px;
 	row-gap: 10px;
 	height: 490px;
@@ -57,9 +60,7 @@ h1 {
 	align-items: center;
 	margin-top: 25px;
 }
-.key-row {
-	display: inherit;
-}
+
 .keyboard-button {
 	height: 55px;
 	min-width: 45px;
@@ -143,37 +144,17 @@ h1 {
 }
 header {
 	height: 100px;
-	text-align: center;
 	width: 100%;
-	box-sizing: border-box;
-}
-.normal-content {
-	height: inherit;
-	width: inherit;
-	padding: 15px;
-	box-sizing: border-box;
 	display: flex;
-	justify-content: center;
-	align-items: center;
 	justify-content: space-between;
+	align-items: center;
 }
+
 header h1 {
 	color: white;
-	;
 	margin-left: 25px;
 }
-header h2 {
-	justify-content: flex-end;
-	margin-right: 15px;
-	cursor: pointer;
-	transition: all 0.15s linear;
-}
-article h2 {
-	margin: 0;
-}
-header h2:hover {
-	color: white;
-}
+
 .toggle-not-found-color {
 	background: var(--not-found-color);
 	border-color: var(--not-found-color);
@@ -199,9 +180,8 @@ header h2:hover {
 	right: 0;
 	top: 0;
 	background-color: rgba(104, 104, 104, 0.548);
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	display: grid;
+	place-items: center;
 }
 .modal-content {
 	text-align: left;

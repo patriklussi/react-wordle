@@ -11,8 +11,8 @@ import Header from "./Header";
 import Modal from "./Modal";
 import InfoModal from "./InfoModal";
 
-//Helpers 
-import { isAlphabetLetter,checkIfWordIsInList } from "../Helpers/Utils";
+//Helpers
+import { isAlphabetLetter, checkIfWordIsInList } from "../Helpers/Utils";
 
 export const WordleContext = createContext();
 function Game() {
@@ -30,8 +30,6 @@ function Game() {
   const [inputWord, setInputWord] = useState();
   const [reset, setReset] = useState(false);
   const [gameWon, setGameWon] = useState(false);
-  
- 
 
   useEffect(() => {
     if (activeRow === 6 && gameWon === false) {
@@ -53,7 +51,6 @@ function Game() {
       setModalMessage("Congratulations you won!");
     }
   }, [gameWon]);
-
 
   const getWord = () => {
     let index = Math.floor(Math.random() * wordsList.length);
@@ -115,7 +112,6 @@ function Game() {
     setInputWord(row);
   };
 
-
   const handleReset = () => {
     setGameArr([...Array(6)].map(() => [...Array(5)].map(() => "")));
     setDisabled(false);
@@ -153,13 +149,12 @@ function Game() {
         <Header />
         <InfoModal />
         <Modal modalMessage={modalMessage} />
-        <div className="Game">
-          {error ? <Error /> : <></>}
-          <div className="game-wrapper">
-            <Board setDisabled={setDisabled} />
-          </div>
-          <Keyboard handleVirtualKeyboardPress={handleKeyPress} />
+
+        {error ? <Error /> : <></>}
+        <div className="game-wrapper">
+          <Board setDisabled={setDisabled} />
         </div>
+        <Keyboard handleVirtualKeyboardPress={handleKeyPress} />
       </div>
     </WordleContext.Provider>
   );
