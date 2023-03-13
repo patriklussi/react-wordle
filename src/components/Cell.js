@@ -5,16 +5,16 @@ import React, { useEffect, useState } from "react";
 import { useWorldeContext } from "../hooks/useWorldeContext";
 
 export default function Cell({ value, index }) {
-  const { word, inputWord, reset } = useWorldeContext();
+  const { word, reset ,inputWord} = useWorldeContext();
   const [letterState, setLetterState] = useState("");
   const [flip, setFlip] = useState(false);
   useEffect(() => {
-  
     if (reset) {
       setLetterState("");
       setFlip(false);
     }
   }, [reset]);
+
   useEffect(() => {
     if (value === "") {
       return;
@@ -23,7 +23,7 @@ export default function Cell({ value, index }) {
       colorCells();
       setFlip(true);
     }, 350 * index);
-  }, [inputWord]);
+  },[inputWord]);
 
   const colorCells = () => {
     const correct = word[index] === value;
