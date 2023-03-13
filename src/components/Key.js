@@ -1,8 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
-import "../App.css";
+//React imports
+import React, { useState, useEffect } from "react";
+
+//Library imports
 import BackspaceIcon from "@mui/icons-material/Backspace";
+
 //Hooks
 import { useWorldeContext } from "../hooks/useWorldeContext";
+
 export default function Key({ value, handleClick }) {
   const {  inputWord,word ,reset} = useWorldeContext();
   const [keyState, setKeyState] = useState("");
@@ -11,7 +15,8 @@ export default function Key({ value, handleClick }) {
       return;
     }
     colorKeys(value);
-  }, [inputWord]);
+  });
+  
   useEffect(()=>{
     if(reset){
       setKeyState("");

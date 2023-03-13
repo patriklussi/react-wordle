@@ -1,11 +1,15 @@
-import React, { useContext } from "react";
-import "../App.css";
+//React imports
+import React from "react";
+
+//Library imports
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
+
 //Hooks
 import { useWorldeContext } from "../hooks/useWorldeContext";
+
 export default function Modal({ modalMessage }) {
-  const { show, setShow, word, handleReset, activeRow, gameWon } =
+  const { show, setShow, word, handleReset } =
   useWorldeContext();
   if (!show) {
     return;

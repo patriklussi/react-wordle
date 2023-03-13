@@ -1,8 +1,7 @@
+//React imports
 import React, { useEffect, useState, createContext } from "react";
-//Words
-import wordsList from "../assets/wordlist";
-//Css
-import "../App.css";
+
+
 //Components
 import Board from "./Board";
 import Keyboard from "./Keyboard";
@@ -12,7 +11,7 @@ import Modal from "./Modal";
 import InfoModal from "./InfoModal";
 
 //Helpers
-import { isAlphabetLetter, checkIfWordIsInList ,getWord} from "../Helpers/Utils";
+import { isAlphabetLetter, checkIfWordIsInList ,getWord} from "../Helpers/wordHelpers";
 
 export const WordleContext = createContext();
 function Game() {
@@ -36,10 +35,10 @@ function Game() {
       setTimeout(() => {
         setModalMessage("You lost! Better luck next time");
         setShow(true);
-        setDisabled(!disabled);
+        setDisabled(d => !d);
       }, 3000);
     }
-  }, [activeRow]);
+  }, [activeRow,gameWon]);
 
   useEffect(() => {
    setWord(getWord);

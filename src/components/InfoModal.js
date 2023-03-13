@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
-import "../App.css";
+//Library imports
 import CloseIcon from "@mui/icons-material/Close";
-
 import { IconButton } from "@mui/material";
+
 //Hooks
 import { useWorldeContext } from "../hooks/useWorldeContext";
 export default function InfoModal() {
@@ -19,7 +18,6 @@ export default function InfoModal() {
       <section className="modal-content">
         <div className="modal-header">
           <IconButton
-            style={{ cursor: "pointer", fontSize: "2rem", color: "white" }}
             onClick={() => {
               setShowInfoModal(false);
               setDisabled(false);
