@@ -2,10 +2,11 @@ import React, { useContext } from "react";
 import "../App.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
-import { WordleContext } from "../components/Game";
+//Hooks
+import { useWorldeContext } from "../hooks/useWorldeContext";
 export default function Modal({ modalMessage }) {
   const { show, setShow, word, handleReset, activeRow, gameWon } =
-    useContext(WordleContext);
+  useWorldeContext();
   if (!show) {
     return;
   }
@@ -35,20 +36,11 @@ export default function Modal({ modalMessage }) {
         </div>
         <footer className="modal-footer-victory">
           {" "}
-          <button className="replay-button" onClick={playAgain}>
+          <button className="btn" onClick={playAgain}>
             Play again
           </button>
-          <span className="divider-span">Or</span>
-          <a
-            className="replay-button green-button page-link"
-            href="https://www.nytimes.com/games/wordle/index.html"
-            hrefLang="en"
-            target="_blank"
-            rel="noreferrer"
-          >
-            {" "}
-            Play real wordle{" "}
-          </a>
+         
+         
         </footer>
       </section>
     </div>

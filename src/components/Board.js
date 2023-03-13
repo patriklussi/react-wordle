@@ -2,11 +2,12 @@ import React, {  useContext } from "react";
 
 //Components
 import Cell from "./Cell";
-//Context
-import { WordleContext } from "../components/Game";
+
+//Hooks
+import { useWorldeContext } from "../hooks/useWorldeContext";
 
 export default function Board() {
-  const { activeRow, error, gameArr } = useContext(WordleContext);
+  const { activeRow, error, gameArr } = useWorldeContext();
 
   return (
     <>

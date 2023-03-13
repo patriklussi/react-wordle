@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import "../App.css";
 import CloseIcon from "@mui/icons-material/Close";
+
 import { IconButton } from "@mui/material";
-import { WordleContext } from "../components/Game";
+//Hooks
+import { useWorldeContext } from "../hooks/useWorldeContext";
 export default function InfoModal() {
-  const {  showInfoModal, setShowInfoModal,setDisabled,handleReset  } = useContext(WordleContext);
+  const {  showInfoModal, setShowInfoModal,setDisabled,handleReset  } = useWorldeContext();
   if (!showInfoModal) {
     return;
   }
@@ -81,7 +83,7 @@ export default function InfoModal() {
             I hope this helped clear things up<br></br> Now go and have fun with
             the game!
           </p>
-          <button onClick={closeAndResetBoard} className="replay-button">Play!</button>
+          <button onClick={closeAndResetBoard} className="btn">Play!</button>
         </footer>
       </section>
     </div>

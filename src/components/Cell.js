@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import "../App.css";
-import { WordleContext } from "../components/Game";
+//Hooks
+import { useWorldeContext } from "../hooks/useWorldeContext";
 
 export default function Cell({ value, index }) {
-  const { word, inputWord, reset } = useContext(WordleContext);
+  const { word, inputWord, reset } = useWorldeContext();
   const [letterState, setLetterState] = useState("");
   const [flip, setFlip] = useState(false);
   useEffect(() => {

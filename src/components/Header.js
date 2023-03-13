@@ -2,9 +2,12 @@ import React, {  useContext } from "react";
 import "../App.css";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { IconButton } from "@mui/material";
-import { WordleContext } from "../components/Game";
+
+//Hooks
+import { useWorldeContext } from "../hooks/useWorldeContext";
+
 export default function Header() {
-  const { setShowInfoModal, setDisabled } = useContext(WordleContext);
+  const { setShowInfoModal, setDisabled } = useWorldeContext();
 
   const openInfo = () => {
     setShowInfoModal(true);

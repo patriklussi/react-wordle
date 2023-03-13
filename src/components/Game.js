@@ -12,7 +12,7 @@ import Modal from "./Modal";
 import InfoModal from "./InfoModal";
 
 //Helpers
-import { isAlphabetLetter, checkIfWordIsInList } from "../Helpers/Utils";
+import { isAlphabetLetter, checkIfWordIsInList ,getWord} from "../Helpers/Utils";
 
 export const WordleContext = createContext();
 function Game() {
@@ -42,7 +42,7 @@ function Game() {
   }, [activeRow]);
 
   useEffect(() => {
-    getWord();
+   setWord(getWord);
   }, [setGameArr]);
 
   useEffect(() => {
@@ -52,10 +52,7 @@ function Game() {
     }
   }, [gameWon]);
 
-  const getWord = () => {
-    let index = Math.floor(Math.random() * wordsList.length);
-    setWord(wordsList[index]);
-  };
+
 
   const setWordInCell = (char, row, col) => {
     setGameArr((prevState) => {
@@ -118,7 +115,7 @@ function Game() {
     setActiveRow(0);
     setGameWon(false);
     setReset(!reset);
-    getWord();
+   setWord(getWord);
   };
 
   return (

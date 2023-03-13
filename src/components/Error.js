@@ -1,8 +1,11 @@
 import React,{useContext} from 'react'
 import "../App.css";
-import { WordleContext } from "../components/Game";
+
+
+//Hooks
+import { useWorldeContext } from "../hooks/useWorldeContext";
 export default function Error() {
-  const {error} = useContext(WordleContext)
+  const {error} = useWorldeContext();
   return (
    <article className='error-card'>
         <p>{error}</p>

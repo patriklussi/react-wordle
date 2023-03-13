@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../App.css";
 import BackspaceIcon from "@mui/icons-material/Backspace";
-import { WordleContext } from "../components/Game";
+//Hooks
+import { useWorldeContext } from "../hooks/useWorldeContext";
 export default function Key({ value, handleClick }) {
-  const {  inputWord,word ,reset} = useContext(WordleContext);
+  const {  inputWord,word ,reset} = useWorldeContext();
   const [keyState, setKeyState] = useState("");
   useEffect(() => {
     if(!inputWord?.includes(value)){
